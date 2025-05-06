@@ -28,10 +28,14 @@ public class AuthController {
 
     @PostMapping("/signup")
     public String signup(@RequestBody UserInfo user) {
-        user.setEmail(user.getEmail());
-        user.setName(user.getName());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        // Check if the email already exists in the database
+        if (userRepository.existsByEmail(user.getEmail())) {
+            return "Email is already registered!";
+        }
+
+        // If the email doesn't exist, save the user
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt the password
+        userRepository.save(user); // Save the new user to the database
         return "User registered successfully!";
     }
 

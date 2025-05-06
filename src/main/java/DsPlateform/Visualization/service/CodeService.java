@@ -8,4 +8,8 @@ public interface CodeService {
     boolean UpdateCode(int id, Code UpdatedCode);
     Code GetCodeById(int id);
     List<Code> GetAllCode();
+
+    List<Code> getCodesByUsername(String usernameOrEmail);
+
+    boolean AddCodeByEmail(Code code, String usernameOrEmail);
 }

@@ -7,6 +7,7 @@ import DsPlateform.Visualization.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,13 +32,28 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
+    public boolean AddCodeByEmail(Code code, String email) {
+        Optional<UserInfo> userOptional = userInfoRepository.findByEmail(email); // Find user by email
+        if (userOptional.isPresent()) {
+            code.setUser(userOptional.get());
+            if (code.getDate() == null) {
+                code.setDate(new java.util.Date()); // Set current date and time
+            }            _codeRepository.save(code);
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
     public boolean UpdateCode(int id, Code UpdatedCode) {
         Optional<Code> codeOptional = _codeRepository.findById(id);
         if (codeOptional.isPresent()) {
             Code code = codeOptional.get();
             code.setCodeDescription(UpdatedCode.getCodeDescription());
-            code.setDate(UpdatedCode.getDate());
-            code.setCodeTitle(UpdatedCode.getCodeTitle());
+            if (UpdatedCode.getDate() == null) {
+                code.setDate(new java.util.Date()); // Set current date and time
+            }            code.setCodeTitle(UpdatedCode.getCodeTitle());
             code.setWrittenCode(UpdatedCode.getWrittenCode());
             _codeRepository.save(code);
             return true;
@@ -54,4 +70,12 @@ public class CodeServiceImpl implements CodeService {
     public List<Code> GetAllCode() {
         return _codeRepository.findAll();
     }
+
+
+    public List<Code> getCodesByUsername(String usernameOrEmail) {
+        Optional<UserInfo> user = userInfoRepository.findByEmail(usernameOrEmail); // or findByUsername()
+        if (user == null) return new ArrayList<>();
+        return _codeRepository.findAllByUser(user); // or codeRepository.findByUserId(user.getId())
+    }
+
 }
