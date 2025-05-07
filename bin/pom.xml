@@ -4,15 +4,12 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.0.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
-
 
 	<groupId>com.gfg</groupId>
 	<artifactId>springboot3-security</artifactId>
@@ -27,11 +24,6 @@
 
 	<dependencies>
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-		
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -39,11 +31,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.cloudinary</groupId>
-			<artifactId>cloudinary-http44</artifactId>
-			<version>1.31.0</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>

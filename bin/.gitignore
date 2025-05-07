@@ -1,0 +1,10 @@
+# Ignore IDE files
+.idea/
+*.iml
+
+# Ignore target folder
+/target/
+
+# Ignore Spring Boot secrets
+src/main/resources/application.properties
+
