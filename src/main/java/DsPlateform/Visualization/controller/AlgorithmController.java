@@ -1,4 +1,4 @@
-
+package DsPlateform.Visualization.controller;
 //import com.yourproject.service.GeminiService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
