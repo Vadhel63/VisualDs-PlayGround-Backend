@@ -27,4 +27,54 @@ public class Code {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)  // foreign key column in 'Code' table
     private UserInfo user;
+
+	public int getCodeId() {
+		return codeId;
+	}
+
+	public void setCodeId(int codeId) {
+		this.codeId = codeId;
+	}
+
+	public String getCodeTitle() {
+		return codeTitle;
+	}
+
+	public void setCodeTitle(String codeTitle) {
+		this.codeTitle = codeTitle;
+	}
+
+	public String getCodeDescription() {
+		return codeDescription;
+	}
+
+	public void setCodeDescription(String codeDescription) {
+		this.codeDescription = codeDescription;
+	}
+
+	public String getWrittenCode() {
+		return writtenCode;
+	}
+
+	public void setWrittenCode(String writtenCode) {
+		this.writtenCode = writtenCode;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+    
+    
 }
