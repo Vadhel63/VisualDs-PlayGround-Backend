@@ -1,29 +1,36 @@
-package DsPlateform.Visualization.controller;
-import DsPlateform.Visualization.service.OpenAIService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+//import com.yourproject.service.GeminiService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import DsPlateform.Visualization.service.GeminiService;
+
 import java.util.Map;
+
 @RestController
 @RequestMapping("/api/algorithm")
-
+@CrossOrigin(origins = "*") // Added for convenience when testing with frontend
 public class AlgorithmController {
-    @Autowired
-    private OpenAIService openAIService;
-
-    @PostMapping("/generate")
-    public String generateCode(@RequestBody Map<String, String> payload) {
-        // Call the OpenAI service to generate the code
-        String prompt = payload.get("prompt");
-        System.out.println("Prompt: " + prompt);
-        String generatedCode = openAIService.generateAlgorithmCode(prompt);
-
-        return generatedCode;
-    }
-
-
-
+  
+  private final GeminiService geminiService;
+  
+  public AlgorithmController(GeminiService geminiService) {
+      this.geminiService = geminiService;
+  }
+  
+  @GetMapping("/generate")
+  public ResponseEntity<String> generateAlgorithmGet(@RequestParam String type) {
+      String generatedCode = geminiService.generateAlgorithmCode(type);
+      return ResponseEntity.ok(generatedCode);
+  }
+  
+  @PostMapping("/generate")
+  public ResponseEntity<String> generateAlgorithmPost(@RequestBody Map<String, String> request) {
+      String type = request.get("type");
+      if (type == null || type.isEmpty()) {
+          return ResponseEntity.badRequest().body("Algorithm type is required");
+      }
+      String generatedCode = geminiService.generateAlgorithmCode(type);
+      return ResponseEntity.ok(generatedCode);
+  }
 }
