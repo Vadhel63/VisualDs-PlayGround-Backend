@@ -63,8 +63,8 @@ public class CodeController {
 
     @PutMapping("/codes/{id}")
     public ResponseEntity<String> UpdateCode(@PathVariable int id, @RequestBody Code updatedCode) {
-        boolean updated = _codeService.UpdateCode(id, updatedCode);
-        if (updated)
+        Code c = _codeService.UpdateCode(id, updatedCode);
+        if (c !=null)
             return new ResponseEntity<>("Code Updated Successfully", HttpStatus.OK);
         return new ResponseEntity<>("Code with Specific ID Not Found", HttpStatus.NOT_FOUND);
     }

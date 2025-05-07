@@ -21,6 +21,7 @@ public class UserInfo {
     private String name;
     private String email;
     private String password;
+    private String imageUrl; // <-- Optional profile image URL
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -64,5 +65,13 @@ public class UserInfo {
 
     public void setCodes(List<Code> codes) {
         this.codes = codes;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -46,7 +46,7 @@ public class CodeServiceImpl implements CodeService {
 
 
     @Override
-    public boolean UpdateCode(int id, Code UpdatedCode) {
+    public Code UpdateCode(int id, Code UpdatedCode) {
         Optional<Code> codeOptional = _codeRepository.findById(id);
         if (codeOptional.isPresent()) {
             Code code = codeOptional.get();
@@ -56,9 +56,9 @@ public class CodeServiceImpl implements CodeService {
             }            code.setCodeTitle(UpdatedCode.getCodeTitle());
             code.setWrittenCode(UpdatedCode.getWrittenCode());
             _codeRepository.save(code);
-            return true;
+            return code;
         }
-        return false;
+        return null;
     }
 
     @Override

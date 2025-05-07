@@ -30,16 +30,19 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     private  final  RsaKeyProperties rsaKeys;
     private final UserInfoRepository userRepository;
+    private final CorsConfigurationSource customCorsConfiguration;
 
-    public SecurityConfig(RsaKeyProperties rsaKeys, UserInfoRepository userRepository) {
+    public SecurityConfig(RsaKeyProperties rsaKeys, UserInfoRepository userRepository, CorsConfigurationSource customCorsConfiguration) {
         this.rsaKeys = rsaKeys;
         this.userRepository = userRepository;
+        this.customCorsConfiguration = customCorsConfiguration;
     }
 
     @Bean
@@ -77,13 +80,13 @@ public class SecurityConfig {
         return  http
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/**").permitAll()
-            .anyRequest().authenticated())
+                        .requestMatchers("/auth/**").permitAll()
+                        .anyRequest().authenticated())
+                .cors(c -> c.configurationSource(customCorsConfiguration))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .httpBasic(Customizer.withDefaults())
-                .build();
-    }
+                .httpBasic(Customizer.withDefaults()).build();
+}
     @Bean
     JwtDecoder jwtDecoder()
     {
