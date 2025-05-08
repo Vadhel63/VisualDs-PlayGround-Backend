@@ -11,5 +11,5 @@ public interface CodeService {
 
     List<Code> getCodesByUsername(String usernameOrEmail);
 
-    boolean AddCodeByEmail(Code code, String usernameOrEmail);
+    Code AddCodeByEmail(Code code, String usernameOrEmail);
 }

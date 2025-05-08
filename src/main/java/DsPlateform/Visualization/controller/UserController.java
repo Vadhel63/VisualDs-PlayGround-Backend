@@ -3,6 +3,7 @@ import DsPlateform.Visualization.entity.UserInfo;
 import DsPlateform.Visualization.repository.UserInfoRepository;
 import DsPlateform.Visualization.service.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/Api")
@@ -48,7 +50,11 @@ public class UserController {
         userRepository.save(user);
         return ResponseEntity.ok(user);
     }
+    @GetMapping("/user/profile/{id}")
+    public UserInfo getProfileById(@PathVariable int id) {
 
+        return userRepository.findById(id).orElseThrow(()->new RuntimeException("User Not Found"));
+    }
     @GetMapping("/user/profile")
     public UserInfo getProfile(Principal principal) {
         return userRepository.findByEmail(principal.getName())
