@@ -32,16 +32,17 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
-    public boolean AddCodeByEmail(Code code, String email) {
+    public Code AddCodeByEmail(Code code, String email) {
         Optional<UserInfo> userOptional = userInfoRepository.findByEmail(email); // Find user by email
         if (userOptional.isPresent()) {
             code.setUser(userOptional.get());
             if (code.getDate() == null) {
                 code.setDate(new java.util.Date()); // Set current date and time
             }            _codeRepository.save(code);
-            return true;
+            return code;
         }
-        return false;
+        return null;
+
     }
 
 

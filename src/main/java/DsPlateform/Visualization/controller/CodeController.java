@@ -44,14 +44,14 @@ public class CodeController {
 
 
     @PostMapping("/codes/user")
-    public ResponseEntity<String> SaveCode(Authentication authentication, @RequestBody Code code) {
+    public ResponseEntity<Code> SaveCode(Authentication authentication, @RequestBody Code code) {
         String usernameOrEmail = authentication.getName(); // Extract email from JWT token
 
-        boolean saved = _codeService.AddCodeByEmail(code, usernameOrEmail); // Pass email instead of userId
-        if (saved)
-            return new ResponseEntity<>("Code Saved Successfully", HttpStatus.CREATED);
-        return new ResponseEntity<>("User Not Found", HttpStatus.NOT_FOUND);
-    }
+        Code code1 = _codeService.AddCodeByEmail(code, usernameOrEmail); // Pass email instead of userId
+        if (code1 != null)
+            return new ResponseEntity<>(code1, HttpStatus.CREATED);
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+}
 
     @PostMapping("/codes/user/{userId}")
     public ResponseEntity<String> SaveCode(@PathVariable int userId, @RequestBody Code code) {
