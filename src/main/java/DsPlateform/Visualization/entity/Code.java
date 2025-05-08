@@ -19,6 +19,8 @@ public class Code {
 
     private String codeTitle;
     private String codeDescription;
+
+	@Column(length = 100000)
     private String writtenCode;
 
     @Temporal(TemporalType.TIMESTAMP)

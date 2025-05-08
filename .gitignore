@@ -6,5 +6,3 @@
 /target/
 
 # Ignore Spring Boot secrets
-src/main/resources/application.properties
-

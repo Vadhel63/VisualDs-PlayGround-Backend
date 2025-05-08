@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
         @Override
         public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
             CorsConfiguration config = new CorsConfiguration();
-            config.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.1:8080"));
+            config.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.pu1:8080", "https://sumit3105.github.io/"));
             config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
             config.setAllowedHeaders(List.of("*"));
             return config;
